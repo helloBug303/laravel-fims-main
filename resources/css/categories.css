@@ -1,0 +1,9 @@
+/* resources/css/category.css */
+.category-page-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-left: 10px;
+}
+
+/* rest of your CSS code */

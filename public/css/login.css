@@ -1,0 +1,111 @@
+/* Specific styles for the login page */
+.login-page-body {
+    height: 100vh; /* Full viewport height */
+    margin: 0;
+    background-color: #f1f2f7;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+}
+
+.login-container {
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-header h1 {
+    margin-bottom: 10px;
+    font-size: 26px;
+}
+
+.login-header p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.control-label {
+    margin-bottom: 6px;
+    display: block;
+    font-weight: 600;
+}
+
+.form-control {
+    width: 100%;
+    max-width: 375px;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+    font-size: 15px;
+}
+
+.form-control:focus {
+    border-color: #E981A4;
+    background-color: #fdf5f8;
+    outline: none;
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #E981A4;
+    border: none;
+    border-radius: 6px;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background-color: #e25e8a;
+}
+
+.error-msg {
+    color: #ed5153;
+    font-size: 14px;
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.error-msg li {
+    background-color: #fde4e4;
+    border-left: 4px solid #ed5153;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    font-size: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.error-msg li strong {
+    font-weight: bold;
+}
+
+.error-msg li span {
+    display: block;
+    margin-top: 5px;
+    font-size: 13px;
+    color: #9e9e9e;
+}
+
+
+@media (max-width: 480px) {
+    .login-container {
+        margin: 20px;
+        padding: 30px 20px;
+    }
+}
