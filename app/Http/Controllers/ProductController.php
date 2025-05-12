@@ -209,12 +209,11 @@ class ProductController extends Controller
 
     public function expired()
     {
-        $products = Product::whereNotNull('expiry_date')
-            ->whereDate('expiry_date', '<', now()) // Expired products
-            ->with(['category', 'media'])          // Load category & image
+            $products = Product::whereNotNull('expiry_date')
+            ->where('expiry_date', '<', now())  // Ensure the expiry_date is before today
             ->get();
 
-        return view('products.expired', compact('products'));
+    return view('products.expired', compact('products'));
     }
 
 

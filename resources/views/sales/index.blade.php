@@ -158,15 +158,16 @@
                             <select name="main_product_id" id="main_product_id" class="form-control" required>
                                 <option value="">Select a product</option>
                                 @foreach($products as $product)
-                                    @if($product->quantity > 0 && (!isset($product->expiration_date) || $product->expiration_date >= date('Y-m-d')))
-                                        <option value="{{ $product->id }}" @if(old('main_product_id') == $product->id || ($selectedProduct && $selectedProduct->id == $product->id)) selected @endif
-                                            data-price="{{ $product->sale_price }}" data-name="{{ $product->name }}"
+                                    @if($product->quantity > 0 && (!$product->expiry_date || $product->expiry_date >= now())) <!-- Ensure only non-expired products are shown -->
+                                        <option value="{{ $product->id }}" 
+                                            @if(old('main_product_id') == $product->id || ($selectedProduct && $selectedProduct->id == $product->id)) selected @endif
+                                            data-price="{{ $product->sale_price }}" 
+                                            data-name="{{ $product->name }}"
                                             data-quantity="{{ $product->quantity }}">
                                             {{ $product->name }} (Stock: {{ $product->quantity }})
                                         </option>
                                     @endif
                                 @endforeach
-
                             </select>
                             @error('main_product_id')
                                 <span class="text-danger">{{ $message }}</span>
@@ -193,7 +194,7 @@
                         <!-- Quantity -->
                         <div class="form-group">
                             <label for="quantity">Quantity</label>
-                            <input type="number" name="quantity" id="quantity" class="form-control" required>
+                            <input type="number" name="quantity" id="quantity" class="form-control" required >
                             <small id="quantity-warning" class="text-danger d-none"></small>
                             @error('quantity')
                                 <span class="text-danger">{{ $message }}</span>
@@ -222,6 +223,8 @@
 
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success">Add Sale</button>
+                        <button type="reset" class="btn btn-warning" style="background-color: #6c757d; color: white; border: none;">Reset</button>
+
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </div>
 
@@ -328,6 +331,21 @@
             </div>
         </div>
     </div>
+
+    <!-- Script to disable expired products -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const productDropdown = document.getElementById('main_product_id');
+            const options = productDropdown.querySelectorAll('option');
+
+            options.forEach(function (option) {
+                const productExpiryDate = option.dataset.expiryDate; // Get expiry date from data attribute
+                if (productExpiryDate && new Date(productExpiryDate) < new Date()) {
+                    option.disabled = true; // Disable expired products
+                }
+            });
+        });
+    </script>
 
 
 

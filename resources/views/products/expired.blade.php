@@ -38,33 +38,32 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($products as $product)
-                                <tr class="table-danger">
-                                    <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td class="text-center">
-                                        @if($product->media && $product->media->file_name)
-                                            <img src="{{ asset('lib/products/' . $product->media->file_name) }}" alt="Product Photo" style="height: 80px; width: auto;">
-                                        @else
-                                            <img class="img-avatar img-circle" src="{{ asset('uploads/products/default.png') }}" alt="No Image Available" style="height: 80px; width: auto;">
-                                        @endif
-                                    </td>
-                                    <td>{{ $product->name }}</td>
-                                    <td class="text-center">{{ $product->category->name ?? 'N/A' }}</td>
-                                    <td class="text-center">{{ $product->quantity }}</td>
-                                    <td class="text-center">{{ $product->buy_price }}</td>
-                                    <td class="text-center">{{ $product->sale_price }}</td>
-                                    <td class="text-center">{{ $product->date->toFormattedDateString() }}</td>
-                                    <td class="text-center">
-                                        {{ $product->expiry_date ? $product->expiry_date->toFormattedDateString() : 'N/A' }}
-                                        <br>
+                        @foreach ($products as $product)
+                            <tr class="{{ $product->expiry_date && $product->expiry_date < now() ? 'table-danger' : '' }}">
+                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td class="text-center">
+                                    @if($product->media && $product->media->file_name)
+                                        <img src="{{ asset('lib/products/' . $product->media->file_name) }}" alt="Product Photo" style="height: 80px; width: auto;">
+                                    @else
+                                        <img class="img-avatar img-circle" src="{{ asset('uploads/products/default.png') }}" alt="No Image Available" style="height: 80px; width: auto;">
+                                    @endif
+                                </td>
+                                <td>{{ $product->name }}</td>
+                                <td class="text-center">{{ $product->category->name ?? 'N/A' }}</td>
+                                <td class="text-center">{{ $product->quantity }}</td>
+                                <td class="text-center">{{ $product->buy_price }}</td>
+                                <td class="text-center">{{ $product->sale_price }}</td>
+                                <td class="text-center">{{ $product->date->toFormattedDateString() }}</td>
+                                <td class="text-center">
+                                    {{ $product->expiry_date ? $product->expiry_date->toFormattedDateString() : 'N/A' }}
+                                    <br>
+                                    @if($product->expiry_date && $product->expiry_date < now())
                                         <span class="badge" style="background-color: red; color: white;">Expired</span>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="10" class="text-center">No expired products found.</td>
-                                </tr>
-                            @endforelse
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+
                         </tbody>
                     </table>
                 </div>

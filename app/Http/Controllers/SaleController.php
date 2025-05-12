@@ -70,18 +70,23 @@ class SaleController extends Controller
             'price' => 'required|numeric',
             'date' => 'required|date',
         ]);
-    
+
         // Get the selected product
         $product = Product::findOrFail($validated['product_id']);
-    
+
+        // Check if the product is expired
+        if ($product->expiration_date && $product->expiration_date < now()) {
+            return back()->with('error', 'Cannot sell expired products.');
+        }
+
         // Check if there is enough stock    
         if ($validated['quantity'] > $product->quantity) {
             return back()->with('error', 'Insufficient stock available.');
         }
-    
+
         // Calculate the total
         $total = $validated['quantity'] * $validated['price'];
-    
+
         // Create the sale record
         $sale = Sale::create([
             'product_id' => $validated['product_id'],
@@ -89,13 +94,14 @@ class SaleController extends Controller
             'price' => $validated['price'],
             'date' => $validated['date'],
         ]);
-    
+
         // Reduce the stock
         $product->decrement('quantity', $validated['quantity']); // Decrease the quantity in stock
-    
+
         // Redirect back with a success message
         return redirect()->route('sales.index')->with('msg', 'Sale created successfully!');
     }
+
     
 
     // Show the form to edit an existing sale

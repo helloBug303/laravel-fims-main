@@ -40,23 +40,29 @@
 
             <div class="form-group">
                 <label for="quantity">Quantity</label>
-                <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Quantity" required>
+                <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Quantity" required min="1">
+                <div id="quantityWarning" style="color: red; display: none;">Stock quantity cannot be negative!</div>
             </div>
 
             <div class="form-group">
                 <label for="buy_price">Buying Price</label>
-                <input type="number" step="0.01" class="form-control" id="buy_price" name="buy_price" placeholder="Buying Price" required>
+                <input type="number" step="0.01" class="form-control" id="buy_price" name="buy_price" placeholder="Buying Price" required min="1">
+                <div id="buyPriceWarning" style="color: red; display: none;">Buying price cannot be negative!</div>
             </div>
 
             <div class="form-group">
                 <label for="sale_price">Selling Price</label>
-                <input type="number" step="0.01" class="form-control" id="sale_price" name="sale_price" placeholder="Selling Price" required>
+                <input type="number" step="0.01" class="form-control" id="sale_price" name="sale_price" placeholder="Selling Price" required min="1">
+                <div id="salePriceWarning" style="color: red; display: none;">Selling price cannot be negative!</div>
             </div>
         </div>
 
         <div class="modal-footer">
             <button type="submit" class="btn btn-danger">Add Product</button>
+            <button type="reset" class="btn btn-warning">Reset</button>
+
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            
         </div>
     </form>
 </div>
